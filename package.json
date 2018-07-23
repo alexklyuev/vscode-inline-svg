@@ -11,14 +11,19 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:inlineSvg.preview"
+        "onCommand:inlineSvg.preview",
+        "onCommand:inlineSvg.scan"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
                 "command": "inlineSvg.preview",
-                "title": "Preview inline svg"
+                "title": "Inline SVG: Preview inline svg"
+            },
+            {
+                "command": "inlineSvg.scan",
+                "title": "Inline SVG: Scan project for inline svg"
             }
         ]
     },
