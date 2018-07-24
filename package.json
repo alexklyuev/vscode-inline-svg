@@ -1,8 +1,8 @@
 {
     "name": "vscode-inline-svg",
-    "displayName": "vscode-inline-svg",
-    "description": "Inline SVG preview",
-    "version": "0.7.2",
+    "displayName": "Inline SVG",
+    "description": "Inline SVG viewer",
+    "version": "0.7.3",
     "publisher": "kontrail",
     "repository": {
         "type": "git",
@@ -23,8 +23,30 @@
             {
                 "command": "inlineSvg.preview",
                 "title": "Inline SVG: Preview inline svg"
+            },
+            {
+                "command": "inlineSvg.zoomIn",
+                "title": "[+]"
+            },
+            {
+                "command": "inlineSvg.zoomOut",
+                "title": "[-]"
             }
-        ]
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "when": "view == 'inlineSvgPanel'",
+                    "command": "inlineSvg.zoomIn",
+                    "group": "navigation"
+                },
+                {
+                    "when": "view == 'inlineSvgPanel'",
+                    "command": "inlineSvg.zoomOut",
+                    "group": "navigation"
+                }
+            ]
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
