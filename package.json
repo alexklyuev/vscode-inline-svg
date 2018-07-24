@@ -2,7 +2,7 @@
     "name": "vscode-inline-svg",
     "displayName": "vscode-inline-svg",
     "description": "Inline SVG preview",
-    "version": "0.7.1",
+    "version": "0.7.2",
     "publisher": "kontrail",
     "repository": {
         "type": "git",
