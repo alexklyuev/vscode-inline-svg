@@ -1,8 +1,8 @@
 {
     "name": "vscode-inline-svg",
     "displayName": "vscode-inline-svg",
-    "description": "",
-    "version": "0.0.1",
+    "description": "Inline SVG preview",
+    "version": "0.7.0",
     "publisher": "kontrail",
     "engines": {
         "vscode": "^1.25.0"
@@ -20,10 +20,6 @@
             {
                 "command": "inlineSvg.preview",
                 "title": "Inline SVG: Preview inline svg"
-            },
-            {
-                "command": "inlineSvg.scan",
-                "title": "Inline SVG: Scan project for inline svg"
             }
         ]
     },
