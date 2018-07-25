@@ -26,23 +26,23 @@
             },
             {
                 "command": "inlineSvg.zoomIn",
-                "title": "[+]"
+                "title": "Zoom In"
             },
             {
                 "command": "inlineSvg.zoomOut",
-                "title": "[-]"
+                "title": "Zoom Out"
             }
         ],
         "menus": {
             "editor/title": [
                 {
-                    "when": "view == 'inlineSvgPanel'",
                     "command": "inlineSvg.zoomIn",
+                    "when": "inlineSvgPanelActive",
                     "group": "navigation"
                 },
                 {
-                    "when": "view == 'inlineSvgPanel'",
                     "command": "inlineSvg.zoomOut",
+                    "when": "inlineSvgPanelActive",
                     "group": "navigation"
                 }
             ]

@@ -2,6 +2,7 @@ export class PreviewTemplate {
 
     constructor(
         private content: string,
+        private scale: number,
     ) {}
 
     toString(): string {
@@ -9,8 +10,10 @@ export class PreviewTemplate {
 `
 <!DOCTYPE html>
 <html>
-    <body style="">
-        ${this.content}
+    <body style="
+        transform: scale(${ this.scale });
+    ">
+        ${ this.content }
     </body>
 </html>
 `       );
