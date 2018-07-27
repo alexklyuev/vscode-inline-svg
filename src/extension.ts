@@ -6,6 +6,7 @@ import { AssetsManager } from './lib/services/assets-manager';
 // import { ContextManager } from './lib/services/context-manager';
 import { ZoomTool } from './lib/tools/zoom';
 import { MoveTool } from './lib/tools/move';
+import { FragmentPrinter } from './lib/services/fragment-printer';
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -25,8 +26,9 @@ export function activate(context: vscode.ExtensionContext) {
         const { activeTextEditor } = vscode.window;
         if (activeTextEditor) {
             const inlineFinder = new FragmentFinder(activeTextEditor.document);
-            const fragment = inlineFinder.getFragment(activeTextEditor.selection.active);
-            if (fragment) {
+            const range = inlineFinder.findRange(activeTextEditor.selection.active);
+            if (range) {
+                const fragment = (new FragmentPrinter(range, activeTextEditor.document)).toString();
                 if (panel) {
                     panel.dispose();
                     panel = null;
