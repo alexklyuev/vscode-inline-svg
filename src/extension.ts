@@ -1,27 +1,36 @@
 import * as vscode from 'vscode';
-import { NS } from './config/config';
-import { InlineFinder } from './services/inline-finder';
-import { PreviewTemplate } from './services/preview-template';
+import { NS } from './lib/config/config';
+import { FragmentFinder } from './lib/services/fragment-finder';
+import { PreviewTemplate } from './lib/services/preview-template';
+import { AssetsManager } from './lib/services/assets-manager';
+// import { ContextManager } from './lib/services/context-manager';
+import { ZoomTool } from './lib/tools/zoom';
+import { MoveTool } from './lib/tools/move';
 
 
 export function activate(context: vscode.ExtensionContext) {
 
+    const assetsManager = new AssetsManager(context.extensionPath);
+    // const contextManager = new ContextManager();
+
+    const zoomTool = new ZoomTool(assetsManager);
+    zoomTool.addAssets();
+
+    const moveTool = new MoveTool(assetsManager);
+    moveTool.addAssets();
+
     let panel: vscode.WebviewPanel | null = null;
-    let html: string | null = null;
-    let scale = 1;
 
     const inlineSvgPreview = vscode.commands.registerCommand(`${NS}.preview`, () => {
         const { activeTextEditor } = vscode.window;
         if (activeTextEditor) {
-            const inlineFinder = new InlineFinder(activeTextEditor.document);
+            const inlineFinder = new FragmentFinder(activeTextEditor.document);
             const fragment = inlineFinder.getFragment(activeTextEditor.selection.active);
             if (fragment) {
                 if (panel) {
                     panel.dispose();
                     panel = null;
                 }
-                html = fragment;
-                scale = 1;
                 panel = vscode.window.createWebviewPanel(
                     `${NS}Panel`,
                     'Inline SVG Preview',
@@ -30,7 +39,8 @@ export function activate(context: vscode.ExtensionContext) {
                         enableScripts: true,
                     },
                 );
-                panel.webview.html = (new PreviewTemplate(html, scale)).toString();
+                const html = (new PreviewTemplate(fragment, assetsManager)).toString();
+                panel.webview.html = html;
                 vscode.commands.executeCommand('setContext', 'inlineSvgPanelActive', true);
                 panel.onDidDispose(() => {
                     vscode.commands.executeCommand('setContext', 'inlineSvgPanelActive', false);
@@ -44,16 +54,14 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     const zoomIn = vscode.commands.registerCommand(`${NS}.zoomIn`, () => {
-        if (panel && html) {
-            scale += 0.1;
-            panel.webview.html = (new PreviewTemplate(html, scale)).toString();
+        if (panel) {
+            zoomTool.zoomIn(panel);
         }
     });
 
     const zoomOut = vscode.commands.registerCommand(`${NS}.zoomOut`, () => {
-        if (panel && html) {
-            scale -= 0.1;
-            panel.webview.html = (new PreviewTemplate(html, scale)).toString();
+        if (panel) {
+            zoomTool.zoomOut(panel);
         }
     });
 

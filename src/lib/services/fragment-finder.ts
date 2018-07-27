@@ -4,7 +4,7 @@ import { TextDocument, Position} from 'vscode';
 export type SearchableDocument = Pick<TextDocument, 'lineCount' | 'lineAt'>;
 
 
-export class InlineFinder {
+export class FragmentFinder {
 
     constructor(
         private readonly textDocument: SearchableDocument,
