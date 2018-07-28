@@ -1,8 +1,8 @@
 {
     "name": "vscode-inline-svg",
-    "displayName": "Inline SVG",
-    "description": "Inline SVG viewer",
-    "version": "0.9.1",
+    "displayName": "Inline SVG Preview",
+    "description": "Shows svg fragments from documents as separate image",
+    "version": "0.9.2",
     "publisher": "kontrail",
     "repository": {
         "type": "git",

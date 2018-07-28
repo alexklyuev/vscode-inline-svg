@@ -8,22 +8,6 @@ export class FragmentFinder {
         private readonly textDocument: SearchableDocument,
     ) {}
 
-    // getFragment(position: Position): string | undefined {
-    //     const range = this.findRange(position);
-    //     if (range) {
-    //         const [start, end] = range;
-    //         const lines = Array<string>();
-    //         for (let line = start.line; line <= end.line; line++) {
-    //             lines.push(this.textDocument.lineAt(line).text);
-    //         }
-    //         lines[0] = lines[0].slice(start.character);
-    //         lines[lines.length - 1] = lines[lines.length - 1].slice(0, end.character);
-    //         return lines.map(line => line.trim()).join(' ');
-    //     } else {
-    //         return void 0;
-    //     }
-    // }
-
     findRange(position: Position): [Position, Position] | undefined {
         const startPosition = this.findHalfRange(
             position,

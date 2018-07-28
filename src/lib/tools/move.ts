@@ -1,16 +1,12 @@
 import { AssetsManager } from '../services/assets-manager';
+import { Tool } from '../entities/tool.entity';
 
 
-export class MoveTool {
-
-    constructor(
-        private assetsManager: AssetsManager,
-    ) {
-    }
+export class MoveTool implements Tool {
     
-    addAssets() {
-        this.assetsManager.addScript('assets', 'tools', 'move', 'move.js');
-        this.assetsManager.addStyle('assets', 'tools', 'move', 'move.css');
+    registerAssets(assetsManager: AssetsManager) {
+        assetsManager.addScript('assets', 'tools', 'move', 'move.js');
+        assetsManager.addStyle('assets', 'tools', 'move', 'move.css');
     }
 
 }

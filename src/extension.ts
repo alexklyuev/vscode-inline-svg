@@ -3,22 +3,20 @@ import { NS } from './lib/config/config';
 import { FragmentFinder } from './lib/services/fragment-finder';
 import { PreviewTemplate } from './lib/services/preview-template';
 import { AssetsManager } from './lib/services/assets-manager';
-// import { ContextManager } from './lib/services/context-manager';
+import { ContextManager } from './lib/services/context-manager';
 import { ZoomTool } from './lib/tools/zoom';
 import { MoveTool } from './lib/tools/move';
 import { FragmentPrinter } from './lib/services/fragment-printer';
+import { ToolsManager } from './lib/services/tools-manager';
 
 
 export function activate(context: vscode.ExtensionContext) {
 
     const assetsManager = new AssetsManager(context.extensionPath);
-    // const contextManager = new ContextManager();
-
-    const zoomTool = new ZoomTool(assetsManager);
-    zoomTool.addAssets();
-
-    const moveTool = new MoveTool(assetsManager);
-    moveTool.addAssets();
+    const contextManager = new ContextManager();
+    const toolsManager = new ToolsManager(assetsManager);
+    const zoomTool = toolsManager.registerTool(ZoomTool);
+    toolsManager.registerTool(MoveTool);
 
     let panel: vscode.WebviewPanel | null = null;
 
@@ -43,13 +41,13 @@ export function activate(context: vscode.ExtensionContext) {
                 );
                 const html = (new PreviewTemplate(fragment, assetsManager)).toString();
                 panel.webview.html = html;
-                vscode.commands.executeCommand('setContext', 'inlineSvgPanelActive', true);
+                contextManager.set('inlineSvgPanelActive', true);
                 panel.onDidDispose(() => {
-                    vscode.commands.executeCommand('setContext', 'inlineSvgPanelActive', false);
+                    contextManager.set('inlineSvgPanelActive', false);
                     panel = null;
                 });
                 panel.onDidChangeViewState(_event => {
-                    vscode.commands.executeCommand('setContext', 'inlineSvgPanelActive', panel!.active);
+                    contextManager.set('inlineSvgPanelActive', panel ? panel.active : false);
                 });
             }
         }

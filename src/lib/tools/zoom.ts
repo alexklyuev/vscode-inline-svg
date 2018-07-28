@@ -1,16 +1,12 @@
 import { WebviewPanel } from 'vscode';
 import { AssetsManager } from '../services/assets-manager';
+import { Tool } from '../entities/tool.entity';
 
 
-export class ZoomTool {
-
-    constructor(
-        private assetsManager: AssetsManager,
-    ) {
-    }
+export class ZoomTool implements Tool {
     
-    addAssets() {
-        this.assetsManager.addScript('assets', 'tools', 'zoom', 'zoom.js');
+    registerAssets(assetsManager: AssetsManager) {
+        assetsManager.addScript('assets', 'tools', 'zoom', 'zoom.js');
     }
 
     zoomIn(panel: WebviewPanel) {

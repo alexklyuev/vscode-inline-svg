@@ -1,11 +1,17 @@
 import { Tool } from '../entities/tool.entity';
+import { AssetsManager } from './assets-manager';
 
 
 export class ToolsManager {
-    private tools = Array<Tool>();
 
-    addTool(tool: Tool) {
-        return this.tools.push(tool);
+    constructor(
+        private assetsManager: AssetsManager,
+    ) {}
+
+    registerTool<T extends Tool>(ToolContstructor: {new (): T}): T {
+        const tool = new ToolContstructor();
+        tool.registerAssets(this.assetsManager);
+        return tool;
     }
 
 }
