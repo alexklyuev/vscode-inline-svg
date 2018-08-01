@@ -25,6 +25,14 @@
                 "title": "Inline SVG: Preview inline svg"
             },
             {
+                "command": "inlineSvg.update",
+                "title": "Update SVG preview"
+            },
+            {
+                "command": "inlineSvg.defaultScale",
+                "title": "100%"
+            },
+            {
                 "command": "inlineSvg.zoomIn",
                 "title": "Zoom In"
             },
@@ -35,6 +43,16 @@
         ],
         "menus": {
             "editor/title": [
+                {
+                    "command": "inlineSvg.update",
+                    "when": "inlineSvgPanelOpen && !inlineSvgPanelActive",
+                    "group": "navigation"
+                },
+                {
+                    "command": "inlineSvg.defaultScale",
+                    "when": "inlineSvgPanelActive",
+                    "group": "navigation"
+                },
                 {
                     "command": "inlineSvg.zoomIn",
                     "when": "inlineSvgPanelActive",

@@ -7,7 +7,10 @@ window.addEventListener('load', () => {
         const { data } = event;
         if ('scale' in data) {
             scale += data.scale;
-            svg.style.transform = `scale(${ scale })`;
         }
+        if ('scaleAbs' in data) {
+            scale = data.scaleAbs;
+        }
+        svg.style.transform = `scale(${ scale })`;
     });
 });

@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 
 export interface InlineSvgContext {
     inlineSvgPanelActive: boolean;
+    inlineSvgPanelOpen: boolean;
 }
 
 
