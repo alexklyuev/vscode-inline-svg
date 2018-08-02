@@ -13,4 +13,12 @@ export class ContextManager {
         return vscode.commands.executeCommand('setContext', key, val);
     }
 
+    setMulti(keyvals: Partial<InlineSvgContext>) {
+        return Promise.all(Object.keys(keyvals).map(key => {
+            const val = keyvals[key as keyof InlineSvgContext];
+            return vscode.commands.executeCommand('setContext', key, val);
+        }));
+    }
+
+
 }

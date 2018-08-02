@@ -1,7 +1,7 @@
 // @ts-check
 
 window.addEventListener('load', () => {
-    const svg = document.querySelector('svg');
+    let svg = document.querySelector('svg');
     let x = 0;
     let y = 0;
     const onMousemove = event => {
@@ -12,6 +12,7 @@ window.addEventListener('load', () => {
         });
     };
     const onMousedown = event => {
+        svg = document.querySelector('svg');
         const { clientX, clientY } = event;
         x = clientX - (parseInt(svg.style.left) || 0);
         y = clientY - (parseInt(svg.style.top) || 0);

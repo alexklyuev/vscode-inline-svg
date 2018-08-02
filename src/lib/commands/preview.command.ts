@@ -19,7 +19,7 @@ export class PreviewCommand {
         return this.webviewPanel;
     }
 
-    preview() {
+    show() {
         const { activeTextEditor } = vscode.window;
         if (activeTextEditor) {
             const inlineFinder = new FragmentFinder(activeTextEditor.document);
@@ -59,7 +59,18 @@ export class PreviewCommand {
     }
 
     update() {
-        // TODO: implement
+        const { activeTextEditor } = vscode.window;
+        if (activeTextEditor) {
+            const inlineFinder = new FragmentFinder(activeTextEditor.document);
+            const range = inlineFinder.findRange(activeTextEditor.selection.active);
+            if (range) {
+                const fragment = (new FragmentPrinter(range, activeTextEditor.document)).toString();
+                if (this.panel) {
+                    this.panel.webview.postMessage({svg: fragment});
+                }
+            }
+        }
+        return Promise.resolve(this.panel);
     }
 
 }

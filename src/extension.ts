@@ -6,6 +6,7 @@ import { ZoomTool } from './lib/tools/zoom';
 import { MoveTool } from './lib/tools/move';
 import { ToolsManager } from './lib/services/tools-manager';
 import { PreviewCommand } from './lib/commands/preview.command';
+import { UpdateTool } from './lib/tools/update';
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -16,13 +17,14 @@ export function activate(context: vscode.ExtensionContext) {
     const toolsManager = new ToolsManager(assetsManager);
     const zoomTool = toolsManager.registerTool(ZoomTool);
     toolsManager.registerTool(MoveTool);
+    toolsManager.registerTool(UpdateTool);
 
     const inlineSvgPreview = vscode.commands.registerCommand(`${NS}.preview`, () => {
-        return preview.preview();
+        return preview.show();
     });
 
     const inlineSvgUpdate = vscode.commands.registerCommand(`${NS}.update`, () => {
-        return preview.preview();
+        return preview.update();
     });
 
     const zoomIn = vscode.commands.registerCommand(`${NS}.zoomIn`, () => {
